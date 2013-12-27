@@ -3,40 +3,23 @@
 var LIVERELOAD_PORT = 35729;
 var path = require('path');
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
-
 module.exports = function (grunt) {
+  
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
   
-
   // configurable paths
   var yeomanConfig = {
     app: 'public',
     dist: 'dist'
   };
 
-  grunt.loadNpmTasks('grunt-express');
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    watch: {
-      livereload: {
-        options: {
-          livereload: LIVERELOAD_PORT
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
-      }
-    },
+
+    pkg: grunt.file.readJSON('package.json'),
+    
     express: {
       options: {
         port: 3000,
@@ -63,19 +46,50 @@ module.exports = function (grunt) {
         }
       }
     },
+
     jshint: {
       options: {
         jshintrc: '.jshintrc'
       },
       all: [
-        'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '*.js',
+        'db/**/*.js',
+        'routes/**/*.js',
+        'test/**/*.js',
+        '<%= yeoman.app %>/javascripts/**/*.js',
+        '!<%= yeoman.app %>/js/templates.js',
+        '!<%= yeoman.app %>/js/mixin/with_quick_hash.js'
       ]
     },
+    
     karma: {
       unit: {
         configFile: 'karma.conf.js',
         singleRun: true
+      }
+    },
+
+    watch: {
+      livereload: {
+        options: {
+          livereload: LIVERELOAD_PORT
+        },
+        files: [
+          '<%= yeoman.app %>/{,*/}*.html',
+          '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        ]
+      },
+      scripts: {
+        files: [
+          '*.js',
+          'db/**/*.js',
+          'routes/**/*.js',
+          'test/**/*.js',
+          '<%= yeoman.app %>/js/**/*.js'
+        ],
+        tasks: ['jshint']
       }
     }
   });
