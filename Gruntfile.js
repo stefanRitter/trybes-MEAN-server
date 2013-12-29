@@ -61,13 +61,6 @@ module.exports = function (grunt) {
         '!<%= yeoman.app %>/js/mixin/with_quick_hash.js'
       ]
     },
-    
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
-      }
-    },
 
     watch: {
       livereload: {
@@ -107,8 +100,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'express:test',
-    'karma'
+    'express:test'
   ]);
 
   grunt.registerTask('default', [

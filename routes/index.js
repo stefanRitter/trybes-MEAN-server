@@ -1,14 +1,14 @@
 var pages = require('./pages');
 
-module.exports = exports = function(app) {
+module.exports = function(app) {
   'use strict';
 
-  // homepage routes
+  // pages routes
   app.get('/', pages.getIndex);
-  app.post('/', pages.postIndex);
+  app.post('/', pages.postEmail);
 
   app.get('/about', pages.getAbout);
-  app.post('/about', pages.postAbout);
+  app.post('/about', pages.postEmail);
 
   // app routes
 
