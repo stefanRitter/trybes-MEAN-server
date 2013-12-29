@@ -4,20 +4,16 @@ module.exports = exports = function(app) {
   'use strict';
 
   // homepage routes
-  app.get('/', index);
+  app.get('/', pages.getIndex);
+  app.post('/', pages.postIndex);
 
-  app.get('/about', about);
+  app.get('/about', pages.getAbout);
+  app.post('/about', pages.postAbout);
+
+  // app routes
+
+  // admin routes
 
   // 404
-  app.get('*', function(req, res) { res.status(404).sendfile('./views/404.html'); });
-
-
-  // request handlers
-  function index(req, res) {
-    res.render('index', { title: 'TRYBES' });
-  }
-
-  function about(req, res) {
-    res.render('about', { title: 'TRYBES - About' });
-  }
+  app.get('*', function(req, res) { res.status(404).sendfile('./public/404.html'); });
 };

@@ -13,7 +13,7 @@ app.set('view engine', 'jade');
 app.enable('strict routing');
 
 app.use(express.compress());
-app.use(express.favicon(__dirname + '/app/img/favicon.ico'));
+app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
