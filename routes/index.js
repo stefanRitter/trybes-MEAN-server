@@ -14,6 +14,4 @@ module.exports = function(app) {
 
   // admin routes
 
-  // 404
-  app.get('*', function(req, res) { res.status(404).sendfile('./public/404.html'); });
 };

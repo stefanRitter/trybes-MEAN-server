@@ -3,7 +3,7 @@ var express = require('express'),
     routes = require('./routes'),
     path = require('path'),
     app = express(),
-    errorHandler = require('./routes/error').errorHandler,
+    errorHandler = require('./routes/error'),
     datastoreURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/trybes';
 
 // all environments
@@ -21,6 +21,10 @@ app.use(express.cookieParser('your secret here'));
 //app.use(express.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routes
+app.use(app.router);
+routes(app);
+
 if ('development' === app.get('env')) {
   app.use(express.logger('dev'));
   app.use(express.errorHandler());
@@ -28,12 +32,7 @@ if ('development' === app.get('env')) {
 
 if ('production' === app.get('env')) {
   app.use(express.logger('short'));
-  app.use(errorHandler);
+  errorHandler(app);
 }
-
-// routes
-app.use(app.router);
-routes(app);
-
 
 module.exports = app;
