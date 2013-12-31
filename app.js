@@ -3,7 +3,7 @@ var express = require('express'),
     routes = require('./routes'),
     path = require('path'),
     app = express(),
-    errorHandler = require('./routes/error'),
+    errorHandler = require('./middleware/error'),
     datastoreURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/trybes';
 
 // all environments
