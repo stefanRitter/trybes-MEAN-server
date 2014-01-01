@@ -1,21 +1,27 @@
+'use strict';
+
 var express = require('express'),
     routes = require('./routes'),
     path = require('path'),
     app = express(),
     errorHandler = require('./middleware/error'),
     datastoreURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/trybes',
-    sessionStore = require('connect-mongo')(express);
+    SessionStore = require('connect-mongo')(express),
+    mongoose = require('mongoose');
 
 // logging and error handling
 if ('development' === app.get('env')) {
   app.use(express.logger('dev'));
   app.use(express.errorHandler());
+  mongoose.set('debug', true);
 }
 
 if ('production' === app.get('env')) {
   app.use(express.logger('short'));
   errorHandler(app);
 }
+
+mongoose.connect(datastoreURI, function (err) { if (err) { throw err; }});
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -24,9 +30,13 @@ app.set('view engine', 'jade');
 app.enable('strict routing');
 
 // sessions
-app.use(express.cookieParser(process.env.COOKIE_SECRET || 'your secret here'));
-app.use(express.session({ secret: process.env.SESSION_SECRET || 'your secret here' }));
+app.use(express.cookieParser(process.env.COOKIE_SECRET || 'dev secret'));
+app.use(express.session({
+	secret: process.env.SESSION_SECRET || 'dev secret',
+  store: new SessionStore({ mongoose_connection: mongoose.connection })
+}));
 app.use(express.csrf());
+app.use(function (req, res, next) { res.locals.session = req.session; next(); });
 
 // middleware
 app.use(express.compress());
