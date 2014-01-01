@@ -19,6 +19,7 @@ block body
     if !success
       p.no-margin We are launching soon - sign up for a reminder:
       form.invite-request(method="post")
+        input(type='hidden', name='_csrf', value=token)
         input(type='email', placeholder='Email', name='email')
         button(type='submit') Remind me
       br
