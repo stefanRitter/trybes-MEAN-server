@@ -1,12 +1,22 @@
+module.exports = function (app) {
+  'use strict';
+  
+  function getIndex (req, res) {
+    res.render('index', { title: 'TRYBES' });
+  }
 
-exports.getIndex = function (req, res) {
-  res.render('index', { title: 'TRYBES' });
-};
+  function getAbout (req, res) {
+    res.render('about', { title: 'TRYBES - About' });
+  }
 
-exports.getAbout = function (req, res) {
-  res.render('about', { title: 'TRYBES - About' });
-};
+  function postEmail (req, res) {
+    res.render('about', { title: 'XXXX' });
+  }
 
-exports.postEmail = function (req, res) {
-  res.render('about', { title: 'TRYBES - About' });
+
+  app.get('/', getIndex);
+  app.post('/', postEmail);
+
+  app.get('/about', getAbout);
+  app.post('/about', postEmail);
 };

@@ -1,17 +1,13 @@
-var pages = require('./pages');
+var pages = require('./pages'),
+    authentication = require('./authentication');
 
 module.exports = function(app) {
   'use strict';
 
   // pages routes
-  app.get('/', pages.getIndex);
-  app.post('/', pages.postEmail);
-
-  app.get('/about', pages.getAbout);
-  app.post('/about', pages.postEmail);
+  pages(app);
 
   // app routes
-
-  // admin routes
+  authentication(app);
 
 };

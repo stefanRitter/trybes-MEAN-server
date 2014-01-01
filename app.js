@@ -21,6 +21,7 @@ if ('production' === app.get('env')) {
   errorHandler(app);
 }
 
+// connect to datastore
 mongoose.connect(datastoreURI, function (err) { if (err) { throw err; }});
 
 // all environments
@@ -36,7 +37,7 @@ app.use(express.session({
   store: new SessionStore({ mongoose_connection: mongoose.connection })
 }));
 app.use(express.csrf());
-app.use(function (req, res, next) { res.locals.session = req.session; next(); });
+//app.use(function (req, res, next) { res.locals.session = req.session; next(); });
 
 // middleware
 app.use(express.compress());
