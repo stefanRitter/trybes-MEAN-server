@@ -17,12 +17,12 @@ module.exports = function (app) {
 
     // default response type
     res.type('txt');
-    res.send("Hmmm, couldn't find that page.");
+    res.send('Sorry, could not find that page.');
   });
 
   // 500
   app.use(function (err, req, res, next) {
     console.error('error at %s\n', req.url, err.stack);
-    res.send(500, "500 Server Error, sorry about this - this is an error on our side, we will look into it ASAP!");
+    res.send(500, '500 Server Error, sorry about this - this is an error on our side, we will look into it ASAP!');
   });
 };
