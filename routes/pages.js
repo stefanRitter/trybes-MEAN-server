@@ -14,7 +14,7 @@ module.exports = function (app) {
   }
 
   function postEmail (req, res) {
-    var emailAddress = cleanString(req.body.email);
+    var emailAddress = cleanString(req.param('email'));
     
     Email.create({_id: emailAddress}, function(err, newEmail) {
       if (err) {

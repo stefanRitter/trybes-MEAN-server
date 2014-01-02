@@ -22,6 +22,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "load-grunt-tasks": "~0.2.1",
     "connect-livereload": "~0.2.0",
-    "grunt-express": "~1.2.1"
+    "grunt-express": "~1.2.1",
+    "mocha": "~1.16.2",
+    "supertest": "~0.8.2"
   }
 }
