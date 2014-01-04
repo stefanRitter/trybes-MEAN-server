@@ -7,9 +7,11 @@ module.exports = function (app) {
     res.render('index', { title: 'TEMP' });
   }
 
-  function login (req, res, next) {
-  	var email = cleanString(req.param('email')).toLowerCase(),
-  		pass = cleanString(req.param('pass'));
+  function login (req, res) {
+    var email = cleanString(req.param('email')).toLowerCase(),
+        pass = cleanString(req.param('pass'));
+
+    res.send(email + pass);
   }
 
   app.post('/login', login);

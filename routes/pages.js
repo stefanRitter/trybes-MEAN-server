@@ -16,7 +16,7 @@ module.exports = function (app) {
   function postEmail (req, res) {
     var emailAddress = cleanString(req.param('email'));
     
-    Email.create({_id: emailAddress}, function(err, newEmail) {
+    Email.create({_id: emailAddress}, function (err) {
       if (err) {
         res.redirect('/');
       } else {

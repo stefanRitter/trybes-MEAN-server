@@ -19,6 +19,8 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
+    "jQuery"     : false,
+    
     /* MOCHA */
     "describe"   : false,
     "it"         : false,
