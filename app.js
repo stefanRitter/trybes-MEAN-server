@@ -1,5 +1,7 @@
 'use strict';
 
+require('./db');
+
 var express = require('express'),
     path = require('path'),
     app = express(),
@@ -7,7 +9,6 @@ var express = require('express'),
     datastoreURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/trybes',
     SessionStore = require('connect-mongo')(express),
     mongoose = require('mongoose'),
-    models = require('./db'),
     routes = require('./routes');
 
 // logging and error handling
