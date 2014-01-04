@@ -11,7 +11,7 @@ var express = require('express'),
     routes = require('./routes');
 
 // logging and error handling
-if ('development' === app.get('env')) {
+if ('development' === app.get('env') || 'test' === app.get('env')) {
   app.use(express.logger('dev'));
   app.use(express.errorHandler());
   mongoose.set('debug', true);

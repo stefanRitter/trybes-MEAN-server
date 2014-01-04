@@ -62,6 +62,16 @@ module.exports = function (grunt) {
       ]
     },
 
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec',
+          clearRequireCache: true
+        },
+        src: ['test/**/*.js']
+      },
+    },
+
     watch: {
       livereload: {
         options: {
@@ -82,7 +92,7 @@ module.exports = function (grunt) {
           'test/**/*.js',
           '<%= yeoman.app %>/js/**/*.js'
         ],
-        tasks: ['jshint']
+        tasks: ['jshint', 'mochaTest']
       }
     }
   });
@@ -100,11 +110,13 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'express:test'
+    /*'express:test'*/
+    'mochaTest'
   ]);
 
   grunt.registerTask('default', [
     'jshint',
-    'test'
+    'test',
+    'watch'
   ]);
 };
