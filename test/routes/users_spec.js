@@ -3,7 +3,7 @@
 var request = require('supertest'),
     app = require('../test_helpers').app;
 
-describe('Users REST-API', function() {
+describe('Users routes', function() {
 
   describe('GET /users', function() {
     it('should return an array of users ordered by location', function(done) {

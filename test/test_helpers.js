@@ -5,15 +5,10 @@ process.env.NODE_ENV = 'test';
 
 var mongoose = require('mongoose'),
     datastoreURI = 'mongodb://localhost/trybes-test',
-    app = require('../app'),
-    http = require('http'),
-    server = {};
+    app = require('../app');
 
 before(function () {
   // mongoose.set('debug', true);
-  server = http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
-  });
 });
 
 beforeEach(function (done) {
@@ -27,6 +22,7 @@ beforeEach(function (done) {
   if (mongoose.connection.readyState === 0) {
     mongoose.connect(datastoreURI, function (err) {
       if (err) { throw err; }
+      console.log('connected');
       clearDB();
     });
   } else {
@@ -35,12 +31,9 @@ beforeEach(function (done) {
 });
 
 after(function (done) {
-  server.close(function() {
-    mongoose.disconnect(function () {
-      done();
-    });
+  mongoose.disconnect(function () {
+    done();
   });
 });
 
 exports.app = app;
-exports.server = server;
