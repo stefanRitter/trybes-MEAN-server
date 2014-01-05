@@ -2,28 +2,22 @@
 
 'use strict';
 
-require('./db');
-
 var express = require('express'),
     path = require('path'),
     app = express(),
     errorHandler = require('./middleware/error'),
-    datastoreURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/trybes',
     port = 3000,
     SessionStore = require('connect-mongo')(express),
-    mongoose = require('mongoose'),
-    mongooseConnection = {},
+    db = require('./db'),
     routes = require('./routes');
 
 // logging and error handling
 if ('development' === app.get('env') || 'test' === app.get('env')) {
   app.use(express.logger('dev'));
   app.use(express.errorHandler());
-  mongoose.set('debug', true);
 }
 
 if ('test' === app.get('env')) {
-  datastoreURI = 'mongodb://localhost/trybes-test';
   port = 5000;
 }
 
@@ -33,7 +27,7 @@ if ('production' === app.get('env')) {
 }
 
 // connect to datastore
-mongooseConnection = mongoose.createConnection(datastoreURI, function (err) { if (err) { throw err; }});
+app.locals.mongooseConnection = db.connect(app);
 
 // all environments
 app.set('port', process.env.PORT || port);
@@ -52,7 +46,7 @@ app.use(express.methodOverride());
 app.use(express.cookieParser(process.env.COOKIE_SECRET || 'dev secret'));
 app.use(express.session({
   secret: process.env.SESSION_SECRET || 'dev secret',
-  store: new SessionStore({ mongoose_connection: mongooseConnection })
+  store: new SessionStore({ mongoose_connection: app.locals.mongooseConnection })
 }));
 app.use(express.csrf());
 app.use(function (req, res, next) { res.locals.session = req.session; next(); });
