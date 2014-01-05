@@ -1,27 +1,9 @@
 'use strict';
 
-require('../test_helpers');
-
 var request = require('supertest'),
-    app = require('../../app'),
-    http = require('http'),
-    server = {};
+    app = require('../test_helpers').app;
 
 describe('Users REST-API', function() {
-  before(function () {
-    server = http.createServer(app).listen(app.get('port'), function () {
-      console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
-    });
-  });
-
-  after(function (done) {
-    app.locals.mongooseConnection.close(function(){
-      server.close(function() {
-        done();
-      });
-    });
-  });
-
 
   describe('GET /users', function() {
     it('should return an array of users ordered by location', function(done) {

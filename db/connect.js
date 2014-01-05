@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     datastoreURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/trybes';
 
 module.exports = function (app) {
-  if ('development' === app.get('env') || 'test' === app.get('env')) {
+  if ('development' === app.get('env')) {
     mongoose.set('debug', true);
   }
 

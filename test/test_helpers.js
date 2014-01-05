@@ -1,22 +1,30 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    datastoreURI = 'mongodb://localhost/trybes-test';
-
 // ensure the NODE_ENV is set to 'test'
 process.env.NODE_ENV = 'test';
 
-beforeEach(function (done) {
+var mongoose = require('mongoose'),
+    datastoreURI = 'mongodb://localhost/trybes-test',
+    app = require('../app'),
+    http = require('http'),
+    server = {};
 
+before(function () {
+  // mongoose.set('debug', true);
+  server = http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
+  });
+});
+
+beforeEach(function (done) {
   function clearDB() {
     for (var i in mongoose.connection.collections) {
       mongoose.connection.collections[i].drop();
     }
-    return done();
+    done();
   }
 
   if (mongoose.connection.readyState === 0) {
-    mongoose.set('debug', true);
     mongoose.connect(datastoreURI, function (err) {
       if (err) { throw err; }
       clearDB();
@@ -27,7 +35,12 @@ beforeEach(function (done) {
 });
 
 after(function (done) {
-  mongoose.disconnect(function () {
-    done();
+  server.close(function() {
+    mongoose.disconnect(function () {
+      done();
+    });
   });
 });
+
+exports.app = app;
+exports.server = server;
