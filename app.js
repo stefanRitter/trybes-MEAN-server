@@ -12,6 +12,7 @@ var express = require('express'),
     port = 3000,
     SessionStore = require('connect-mongo')(express),
     mongoose = require('mongoose'),
+    mongooseConnection = {},
     routes = require('./routes');
 
 // logging and error handling
@@ -32,7 +33,7 @@ if ('production' === app.get('env')) {
 }
 
 // connect to datastore
-mongoose.connect(datastoreURI, function (err) { if (err) { throw err; }});
+mongooseConnection = mongoose.createConnection(datastoreURI, function (err) { if (err) { throw err; }});
 
 // all environments
 app.set('port', process.env.PORT || port);
@@ -51,7 +52,7 @@ app.use(express.methodOverride());
 app.use(express.cookieParser(process.env.COOKIE_SECRET || 'dev secret'));
 app.use(express.session({
   secret: process.env.SESSION_SECRET || 'dev secret',
-  store: new SessionStore({ mongoose_connection: mongoose.connection })
+  store: new SessionStore({ mongoose_connection: mongooseConnection })
 }));
 app.use(express.csrf());
 app.use(function (req, res, next) { res.locals.session = req.session; next(); });
