@@ -5,7 +5,6 @@
 require('./db');
 
 var express = require('express'),
-    http = require('http'),
     path = require('path'),
     app = express(),
     errorHandler = require('./middleware/error'),
@@ -61,10 +60,5 @@ app.use(function (req, res, next) { res.locals.session = req.session; next(); })
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 routes(app);
-
-// serve
-http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
-});
 
 module.exports = app;

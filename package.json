@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "0.10.x",
@@ -24,6 +24,7 @@
     "connect-livereload": "~0.2.0",
     "grunt-express": "~1.2.1",
     "grunt-mocha-test": "~0.8.1",
-    "should": "~2.1.1"
+    "should": "~2.1.1",
+    "supertest": "~0.8.2"
   }
 }
