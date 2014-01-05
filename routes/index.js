@@ -1,7 +1,8 @@
 'use strict';
 
 var pages = require('./pages'),
-    authentication = require('./authentication');
+    authentication = require('./authentication'),
+    users = require('./users');
 
 module.exports = function(app) {
 
@@ -10,5 +11,5 @@ module.exports = function(app) {
 
   // app routes
   authentication(app);
-
+  users(app);
 };

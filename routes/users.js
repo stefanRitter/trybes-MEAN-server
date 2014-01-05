@@ -5,12 +5,20 @@ var mongoose = require('mongoose'),
 
 module.exports = function (app) {
   
-  function temp () {
-
+  function index (req, res) {
+    res.json(200, []);
   }
 
-  app.get('/app/users/:id', temp);
-  app.get('/app/users', temp);
-  
-  app.post('/app/users/:id', temp);
+  function show (req, res) {
+    res.json(404, {});
+  }
+
+  function update (req, res) {
+    res.json(403, {});
+  }
+
+  app.get('/app/users/:id', show);
+  app.post('/app/users/:id', update);
+
+  app.get('/app/users', index);
 };
