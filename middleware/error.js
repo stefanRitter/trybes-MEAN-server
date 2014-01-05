@@ -1,8 +1,6 @@
-// Error handling middleware
+'use strict';
 
 module.exports = function (app) {
-  'use strict';
-
   // 404s
   app.use(function (req, res, next) {
     res.status(404);

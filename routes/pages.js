@@ -1,9 +1,10 @@
+'use strict';
+
 var mongoose = require('mongoose'),
     Email = mongoose.model('Email'),
     cleanString = require('../helpers/clean_string');
 
 module.exports = function (app) {
-  'use strict';
   
   function getIndex (req, res) {
     res.render('index', { title: 'TRYBES', token: req.session._csrf });

@@ -1,7 +1,8 @@
+'use strict';
+
 var cleanString = require('../helpers/clean_string');
 
 module.exports = function (app) {
-  'use strict';
   
   function temp (req, res) {
     res.render('index', { title: 'TEMP' });
