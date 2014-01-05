@@ -1,14 +1,13 @@
 'use strict';
 
-var request = require('supertest');
+require('../test_helpers');
+
+var request = require('supertest'),
+    app = require('../../app'),
+    http = require('http'),
+    server = {};
 
 describe('Users REST-API', function() {
-  var app = require('../../app'),
-      http = require('http'),
-      server = {};
-
-  console.log('here');
-
   before(function () {
     server = http.createServer(app).listen(app.get('port'), function () {
       console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
