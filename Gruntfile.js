@@ -55,10 +55,10 @@ module.exports = function (grunt) {
         '*.js',
         'db/**/*.js',
         'routes/**/*.js',
+        'middleware/**/*.js',
+        'helpers/**/*.js',
         'test/**/*.js',
-        '<%= yeoman.app %>/javascripts/**/*.js',
-        '!<%= yeoman.app %>/js/templates.js',
-        '!<%= yeoman.app %>/js/mixin/with_quick_hash.js'
+        'public/**/*.js'
       ]
     },
 
