@@ -5,10 +5,12 @@
 require('./db');
 
 var express = require('express'),
+    http = require('http'),
     path = require('path'),
     app = express(),
     errorHandler = require('./middleware/error'),
     datastoreURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/trybes',
+    port = 3000,
     SessionStore = require('connect-mongo')(express),
     mongoose = require('mongoose'),
     routes = require('./routes');
@@ -20,6 +22,11 @@ if ('development' === app.get('env') || 'test' === app.get('env')) {
   mongoose.set('debug', true);
 }
 
+if ('test' === app.get('env')) {
+  datastoreURI = 'mongodb://localhost/trybes-test';
+  port = 5000;
+}
+
 if ('production' === app.get('env')) {
   app.use(express.logger('short'));
   errorHandler(app);
@@ -29,7 +36,7 @@ if ('production' === app.get('env')) {
 mongoose.connect(datastoreURI, function (err) { if (err) { throw err; }});
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.enable('strict routing');
@@ -54,5 +61,10 @@ app.use(function (req, res, next) { res.locals.session = req.session; next(); })
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 routes(app);
+
+// serve
+http.createServer(app).listen(app.get('port'), function () {
+  console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
+});
 
 module.exports = app;
