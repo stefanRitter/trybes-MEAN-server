@@ -1,25 +1,14 @@
 'use strict';
 
 require('should');
+require('../test_helpers');
 
-var mongoose = require('mongoose'),
-    Email = require('../../db/emails'),
-    datastoreURI = 'mongodb://localhost/trybes-test';
+var Email = require('../../db/emails');
 
 describe('Email', function () {
-  before(function() {
-    mongoose.set('debug', true);
-    mongoose.createConnection(datastoreURI, function (err) { if (err) { throw err; }});
-  });
-
-  after(function() {
-    mongoose.connection.collections.emails.drop(function() {
-      mongoose.connection.close();
-    });
-  });
-
-
+  
   describe('should validate the email address', function() {
+    
     it('should save a valid email', function (done) {
       var validEmail = { _id: 'valid@email.com'};
 

@@ -1,19 +1,26 @@
 'use strict';
 
-var request = require('supertest'),
-    app = require('../../app'),
-    http = require('http'),
-    server = {};
+var request = require('supertest');
 
 describe('Users REST-API', function() {
+  var app = require('../../app'),
+      http = require('http'),
+      server = {};
+
+  console.log('here');
+
   before(function () {
     server = http.createServer(app).listen(app.get('port'), function () {
       console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
     });
   });
 
-  after(function () {
-    server.close();
+  after(function (done) {
+    app.locals.mongooseConnection.close(function(){
+      server.close(function() {
+        done();
+      });
+    });
   });
 
 
