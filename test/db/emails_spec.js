@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 describe('Email', function () {
   before(function() {
     mongoose.set('debug', true);
-    mongoose.connect(datastoreURI, function (err) { if (err) { throw err; }});
+    mongoose.createConnection(datastoreURI, function (err) { if (err) { throw err; }});
   });
 
   after(function() {
