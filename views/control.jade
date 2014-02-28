@@ -53,25 +53,18 @@ html
         line-height: 1.1;
         font-weight: lighter;
       }
-
-      .button {
-        background-color: #FF2824;
-        font-size: 26px;
-        text-decoration: none;
-        padding: 20px 40px;
-        border-radius: 4px;
-        display: inline-block;
-        margin: 50px 0 10px 0;
-        text-transform: uppercase;
-        font-weight: bold;
-        color: inherit;
+      .buttons {
+        margin: 160px 0 40px 0;
       }
-
+      .appstore {
+        margin-right: 25px;
+        position: relative;
+        top: -2px;
+      }
       .more {
         display: block;
         color: black;
         font-weight: bold;
-        padding-top: 20px;
       }
       @media (max-width: 700px) {
         h1 {
@@ -80,30 +73,36 @@ html
         h2 {
           font-size: 40px;
         }
-      }
-      @media (max-height: 320px) {
-        .button {
-          padding: 10px 20px;
-          margin: 20px 0 10px 0;
+        .buttons {
+          margin: 20px 0;
         }
       }
   body
     .main-container
       .vertical-middle
         h1 00:00:00
-        h2
-          | Ready to take control of your life?
-        a.button(href="/") join now
+        h2 Ready to take control of your life?
+        .buttons
+          img.appstore(src="/images/appstore.png", alt="get it on the Apple App store")
+          img(src="/images/playstore.png", alt="get it on the Google Play store")
         a.more(href="/") find out more
 
     script.
       var h1 = document.querySelector('h1');
-      setInterval(function () {
-        var time = new Date();
-        var seconds = time.getSeconds();
-        if (seconds < 10) {
-          seconds = '0' + seconds;
+      
+      function addZero(num) {
+        if (num < 10) {
+          return '0' + num;
         }
-        var str = time.getHours() + ':' + time.getMinutes() + ':' + seconds
+        return num;
+      }
+      
+      setInterval(function () {
+        var time = new Date(),
+            seconds = addZero(time.getSeconds()),
+            hours = addZero(time.getHours()),
+            minutes = addZero(time.getMinutes());
+
+        var str = hours + ':' + minutes + ':' + seconds
         h1.textContent = str;
       }, 1000);
