@@ -83,9 +83,11 @@ html
         h1 00:00:00
         h2 Ready to take control of your life?
         .buttons
-          img.appstore(src="/images/appstore.png", alt="get it on the Apple App store")
-          img(src="/images/playstore.png", alt="get it on the Google Play store")
-        a.more(href="/") find out more
+          a(href="/control")
+            img.appstore(src="/images/appstore.png", alt="get it on the Apple App store")
+          a(href="/control")
+            img(src="/images/playstore.png", alt="get it on the Google Play store")
+        a.more(href="/control") find out more
 
     script.
       var h1 = document.querySelector('h1');
