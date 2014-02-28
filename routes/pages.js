@@ -32,4 +32,8 @@ module.exports = function (app) {
 
   app.get('/about', getAbout);
   app.post('/about', postEmail);
+
+  app.get('/control', function (req, res) {
+    res.render('control');
+  });
 };
