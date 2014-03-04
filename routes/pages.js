@@ -11,7 +11,7 @@ module.exports = function (app) {
   }
 
   function getAbout (req, res) {
-    res.render('about', { title: 'TRYBES - About', token: req.session._csrf });
+    res.render('index', { title: 'TRYBES', token: req.session._csrf });
   }
 
   function postEmail (req, res) {

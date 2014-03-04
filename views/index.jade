@@ -13,28 +13,11 @@ block body
       br
       span TRYBES
 
-  h2.separate.bg-black-transp Coming soon.
-
-  .bg-black-transp.prompt
-    if !success
-      p.no-margin We are launching soon - sign up for a reminder:
-      form.invite-request(method="post")
-        input(type='hidden', name='_csrf', value=token)
-        input(type='email', placeholder='Email', name='email')
-        button(type='submit') Remind me
-      br
-      span.hidden.error Sorry, your email address was invalid. Please correct any mistakes and try again.
-      if error
-        br
-        span.error= error
-    else
-      p Thanks! We will alert you when we launch.
+  h2.separate.bg-black-transp We are of the web.
 
 block footer
   ul
-    li
-      a(href='/about') About
-    li &copy; 2013
+    li &copy; 2014
     li Made in London
     li
       a(href='mailto:team@trybes.org') Contact
